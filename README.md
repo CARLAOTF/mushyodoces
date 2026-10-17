@@ -4,6 +4,10 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 -- Variável de controle do auto-farm
 local farming = false
 
+-- Configuração da Posição do Teleporte
+-- Vector3.new(X, Y, Z) -> Y = 3.5 estuds (aprox. 1 metro no Roblox)
+local offset = Vector3.new(0, 3.5, 0) 
+
 -- Função para coletar os doces
 local function startFarming()
     task.spawn(function()
@@ -22,10 +26,10 @@ local function startFarming()
                         -- Encontra a parte do doce
                         local targetPart = candy:IsA("BasePart") and candy or candy:FindFirstChildWhichIsA("BasePart")
                         if targetPart then
-                            -- Teleporta para o doce
-                            hrp.CFrame = targetPart.CFrame
+                            -- Teleporta 1m acima do doce para o personagem cair por cima
+                            hrp.CFrame = CFrame.new(targetPart.Position + offset)
                             
-                            -- Aumentado para 0.6 segundos (ajuste se quiser mais lento)
+                            -- Tempo de espera (0.6s para cair e o jogo registrar)
                             task.wait(0.6)
                         end
                     end
